@@ -1,0 +1,158 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(80, 80, 80, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 6px;
+  width: 700px;
+  max-width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.2s ease-in-out;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none; 
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 1.5rem;
+}
+
+.modal-header h3 {
+  margin: 0 auto;
+  flex: 1;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.modal-body {
+  padding: 1.5rem 1.8rem;
+  background: #fff;
+}
+
+@media (max-width: 768px) {
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  .modal-header {
+    padding: 1rem;
+  }
+}
+
+.task-form {
+  padding: 0;
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.full-width {
+  margin-top: 1rem;
+}
+
+.modal-footer {
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  margin-top: 1.5rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  margin-bottom: -1.5rem;
+  padding: 1rem 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .task-form {
+    padding: 1rem 1rem 0;
+  }
+  
+  .modal-footer {
+    flex-direction: column-reverse;
+    padding: 1rem;
+    margin: 1rem -1rem -1rem;
+  }
+  
+  .modal-footer .cancel-btn,
+  .modal-footer .save-btn {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.cancel-btn {
+  background-color: #fdeab5;
+  color: #444;
+  border-color: #e1c678;
+  margin-right: 0.5rem;
+}
+
+.cancel-btn:hover {
+  background-color: #fcd97c;
+}
+
+.save-btn {
+  background-color: #8c8c73;
+  color: #fff;
+}
+
+.save-btn:hover {
+  background-color: #6d6d54;
+}
+

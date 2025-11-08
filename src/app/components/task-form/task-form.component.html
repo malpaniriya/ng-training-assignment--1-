@@ -1,0 +1,89 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="slds-form task-form">
+  <div class="slds-grid slds-gutters form-row">
+    <div class="slds-col slds-size_1-of-2">
+      <div class="slds-form-element form-group">
+        <label class="slds-form-element__label">
+          <abbr class="slds-required" title="required">*</abbr> Assigned To
+        </label>
+        <div class="slds-form-element__control">
+          <input 
+            type="text" 
+            class="slds-input" 
+            formControlName="title" 
+            placeholder="User 1"
+            [class.slds-has-error]="f['title'].invalid && f['title'].touched"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-col slds-size_1-of-2">
+      <div class="slds-form-element form-group">
+        <label class="slds-form-element__label">
+          <abbr class="slds-required" title="required">*</abbr> Status
+        </label>
+        <div class="slds-form-element__control">
+          <select 
+            class="slds-select" 
+            formControlName="status"
+            [class.slds-has-error]="f['status'].invalid && f['status'].touched"
+          >
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slds-grid slds-gutters form-row">
+    <div class="slds-col slds-size_1-of-2">
+      <div class="slds-form-element form-group">
+        <label class="slds-form-element__label">Due Date</label>
+        <div class="slds-form-element__control">
+          <input 
+            type="date" 
+            class="slds-input" 
+            formControlName="dueDate"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-col slds-size_1-of-2">
+      <div class="slds-form-element form-group">
+        <label class="slds-form-element__label">
+          <abbr class="slds-required" title="required">*</abbr> Priority
+        </label>
+        <div class="slds-form-element__control">
+          <select 
+            class="slds-select" 
+            formControlName="priority"
+            [class.slds-has-error]="f['priority'].invalid && f['priority'].touched"
+          >
+            <option value="Low">Low</option>
+            <option value="Normal">Normal</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slds-form-element form-group full-width">
+    <label class="slds-form-element__label">Description</label>
+    <div class="slds-form-element__control">
+      <textarea 
+        class="slds-textarea" 
+        formControlName="description" 
+        placeholder="Enter task description"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="slds-modal__footer modal-footer">
+    <button type="button" class="slds-button slds-button_neutral cancel-btn" (click)="onCancel()">Cancel</button>
+    <button type="submit" class="slds-button slds-button_brand save-btn" [disabled]="!taskForm.valid">Save</button>
+  </div>
+</form>

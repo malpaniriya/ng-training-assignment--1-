@@ -1,0 +1,192 @@
+
+<div class="slds-card task-container">
+    <div class="slds-card__header slds-grid task-header">
+      <div class="slds-media slds-media_center title">
+        <div class="slds-media__figure">
+          <span class="slds-icon_container slds-icon-standard-task icon" title="Tasks">
+            🗂
+          </span>
+        </div>
+        <div class="slds-media__body">
+          <h3 class="slds-card__header-title slds-text-heading_medium">Tasks</h3>
+          <p class="slds-text-body_small slds-text-color_weak">All Tasks</p>
+          <p class="slds-text-body_small slds-text-color_weak">{{ tasks.length }} records</p>
+        </div>
+      </div>
+
+      <div class="slds-no-flex actions-container">
+        <div class="actions">
+          <button class="slds-button slds-button_neutral new-task" (click)="openForm()">New Task</button>
+          <button class="slds-button slds-button_neutral refresh" (click)="loadTasks()">Refresh</button>
+        </div>
+        <div class="slds-grid slds-gutters slds-m-top_small search-bar">
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-form-element">
+              <input
+                type="text"
+                class="slds-input"
+                placeholder="Search"
+                [(ngModel)]="searchText"
+                (input)="onSearch()"
+              />
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-form-element">
+              <select class="slds-select" [(ngModel)]="filter.status" (change)="onFilterChange(filter.status)">
+                <option value="All">All</option>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-card__body slds-card__body_inner">
+      <table class="slds-table slds-table_cell-buffer slds-table_bordered task-table">
+        <thead>
+          <tr class="slds-line-height_reset">
+            <th scope="col">
+              <div class="slds-checkbox">
+                <input type="checkbox" name="options" id="checkbox-all" />
+                <label class="slds-checkbox__label" for="checkbox-all">
+                  <span class="slds-checkbox_faux"></span>
+                </label>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="slds-truncate" title="Assigned To">Assigned To</div>
+            </th>
+            <th scope="col">
+              <div class="slds-truncate" title="Status">Status</div>
+            </th>
+            <th scope="col">
+              <div class="slds-truncate" title="Due Date">Due Date</div>
+            </th>
+            <th scope="col">
+              <div class="slds-truncate" title="Priority">Priority</div>
+            </th>
+            <th scope="col">
+              <div class="slds-truncate" title="Comments">Comments</div>
+            </th>
+            <th scope="col">
+              <div class="slds-truncate" title="Actions">Actions</div>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="slds-hint-parent" *ngFor="let task of tasks">
+            <td data-label="" class="checkbox-cell">
+              <div class="slds-checkbox">
+                <input type="checkbox" name="options" [id]="'checkbox-' + task.id" />
+                <label class="slds-checkbox__label" [for]="'checkbox-' + task.id">
+                  <span class="slds-checkbox_faux"></span>
+                </label>
+              </div>
+            </td>
+            <td data-label="Assigned To">
+              <div class="slds-truncate">
+                <a href="#" class="slds-text-link">{{ task.title }}</a>
+              </div>
+            </td>
+            <td data-label="Status">
+              <div class="slds-truncate">{{ task.status }}</div>
+            </td>
+            <td data-label="Due Date">
+              <div class="slds-truncate">{{ task.dueDate | date: 'dd/MM/yyyy' }}</div>
+            </td>
+            <td data-label="Priority">
+              <div class="slds-truncate">{{ task.priority }}</div>
+            </td>
+            <td data-label="Comments">
+              <div class="slds-truncate">{{ task.description }}</div>
+            </td>
+            <td class="slds-cell-action-mode dropdown" data-label="Actions">
+              <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small dropdown-btn" aria-haspopup="true" title="Show More">
+                  ⋮
+                  <span class="slds-assistive-text">Show More</span>
+                </button>
+                <div class="slds-dropdown slds-dropdown_right slds-dropdown_actions dropdown-content">
+                  <ul class="slds-dropdown__list" role="menu">
+                    <li class="slds-dropdown__item" role="presentation">
+                      <a role="menuitem" (click)="onEditTask(task)" class="slds-dropdown__item-link">
+                        <span class="slds-truncate">Edit</span>
+                      </a>
+                    </li>
+                    <li class="slds-dropdown__item" role="presentation">
+                      <a role="menuitem" (click)="onDeleteTask(task)" class="slds-dropdown__item-link">
+                        <span class="slds-truncate">Delete</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="slds-grid slds-grid_align-spread slds-m-top_medium pagination">
+        <div class="slds-form-element">
+          <select class="slds-select">
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
+        </div>
+        <div class="slds-button-group pager">
+          <button class="slds-button slds-button_neutral">&lt; First</button>
+          <button class="slds-button slds-button_neutral">&lt; Prev</button>
+          <span class="slds-p-left_x-small slds-p-right_x-small">1</span>
+          <button class="slds-button slds-button_neutral">Next &gt;</button>
+          <button class="slds-button slds-button_neutral">Last &gt;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slds-backdrop slds-backdrop_open modal-overlay" *ngIf="showForm">
+    <div class="slds-modal slds-modal_large slds-fade-in-open modal-content">
+      <div class="slds-modal__container">
+        <div class="slds-modal__header modal-header">
+          <h2 class="slds-modal__title slds-hyphenate">{{ selectedTask ? 'Edit Task' : 'New Task' }}</h2>
+          <button class="slds-button slds-button_icon slds-modal__close close-btn" (click)="closeForm()" title="Close">
+            ×
+            <span class="slds-assistive-text">Close</span>
+          </button>
+        </div>
+
+        <div class="slds-modal__content slds-p-around_medium">
+          <app-task-form
+            [taskToEdit]="selectedTask"
+            (taskSaved)="onTaskSaved()"
+            (cancel)="closeForm()"
+          ></app-task-form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slds-backdrop slds-backdrop_open modal-overlay" *ngIf="showDeleteConfirm">
+    <div class="slds-modal slds-fade-in-open modal-content delete-modal">
+      <div class="slds-modal__container">
+        <div class="slds-modal__header slds-theme_error delete-header">
+          <h2 class="slds-modal__title slds-hyphenate">Delete</h2>
+        </div>
+
+        <div class="slds-modal__content slds-p-around_medium delete-body">
+          <p>Do you want to delete task <b>{{ taskToDelete?.title }}</b>?</p>
+        </div>
+
+        <div class="slds-modal__footer delete-footer">
+          <button class="slds-button slds-button_neutral cancel-btn" (click)="cancelDelete()">No</button>
+          <button class="slds-button slds-button_destructive delete-confirm-btn" (click)="confirmDelete()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
