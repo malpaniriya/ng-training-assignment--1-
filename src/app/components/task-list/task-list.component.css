@@ -275,6 +275,21 @@
   align-items: center;
   justify-content: center;
 }
+.modal-overlay .slds-modal,
+.modal-overlay .slds-modal__container,
+.modal-overlay .slds-modal__content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modal-overlay .slds-modal::-webkit-scrollbar,
+.modal-overlay .slds-modal__container::-webkit-scrollbar,
+.modal-overlay .slds-modal__content::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
 
 .modal-content {
   width: 700px;
@@ -288,7 +303,34 @@
 }
 
 .modal-content::-webkit-scrollbar {
-  display: none; 
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+.modal-content .slds-modal__container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modal-content .slds-modal__container::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+.modal-content .slds-modal__content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modal-content .slds-modal__content::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
 }
 
 @media (max-width: 768px) {
@@ -378,8 +420,42 @@
 }
 
 .delete-modal {
-  width: 400px;
+  width: 900px;
   max-width: 95%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.delete-modal::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+.delete-modal .slds-modal__container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.delete-modal .slds-modal__container::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+.delete-modal .slds-modal__content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.delete-modal .slds-modal__content::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
 }
 
 .delete-header {
@@ -431,4 +507,29 @@
     opacity: 1;
     transform: scale(1);
   }
+  
 }
+.modal-header {
+  position: relative; 
+  background-color: #fafafa;
+ 
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.8rem;      
+  right: 1rem;      
+  background: transparent;
+  border: none;
+  color: #444;
+  font-size: 1.8rem; 
+  font-weight: 500;
+  cursor: pointer;
+  z-index: 5;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+

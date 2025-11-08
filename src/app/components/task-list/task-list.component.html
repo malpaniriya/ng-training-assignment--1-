@@ -177,6 +177,13 @@
       <div class="slds-modal__container">
         <div class="slds-modal__header slds-theme_error delete-header">
           <h2 class="slds-modal__title slds-hyphenate">Delete</h2>
+          <button
+          class="slds-button slds-button_icon slds-modal__close close-btn"
+          (click)="cancelDelete()"
+          title="Close">
+          ×
+          <span class="slds-assistive-text">Close</span>
+        </button>
         </div>
 
         <div class="slds-modal__content slds-p-around_medium delete-body">
