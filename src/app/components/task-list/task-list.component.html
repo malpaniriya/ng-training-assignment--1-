@@ -45,13 +45,20 @@
       </div>
     </div>
 
-    <div class="slds-card__body slds-card__body_inner">
+    <div class="slds-card__body slds-card__body_inner" (click)="closeDropdown()">
       <table class="slds-table slds-table_cell-buffer slds-table_bordered task-table">
         <thead>
           <tr class="slds-line-height_reset">
             <th scope="col">
               <div class="slds-checkbox">
-                <input type="checkbox" name="options" id="checkbox-all" />
+                <input
+                  type="checkbox"
+                  name="checkbox-all"
+                  id="checkbox-all"
+                  [checked]="selectAll"
+                  (change)="onSelectAll($event)"
+                  (click)="$event.stopPropagation()"
+                />
                 <label class="slds-checkbox__label" for="checkbox-all">
                   <span class="slds-checkbox_faux"></span>
                 </label>
@@ -82,7 +89,14 @@
           <tr class="slds-hint-parent" *ngFor="let task of tasks">
             <td data-label="" class="checkbox-cell">
               <div class="slds-checkbox">
-                <input type="checkbox" name="options" [id]="'checkbox-' + task.id" />
+                <input
+                  type="checkbox"
+                  [name]="'checkbox-' + task.id"
+                  [id]="'checkbox-' + task.id"
+                  [checked]="isTaskSelected(task.id)"
+                  (change)="onSelectTask(task.id, $event)"
+                  (click)="$event.stopPropagation()"
+                />
                 <label class="slds-checkbox__label" [for]="'checkbox-' + task.id">
                   <span class="slds-checkbox_faux"></span>
                 </label>
@@ -106,23 +120,22 @@
               <div class="slds-truncate">{{ task.description }}</div>
             </td>
             <td class="slds-cell-action-mode dropdown" data-label="Actions">
-              <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
-                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small dropdown-btn" aria-haspopup="true" title="Show More">
+              <div class="dropdown-container">
+                <button class="action-dropdown-btn" aria-haspopup="true" title="Show More" type="button" (click)="toggleDropdown(task.id, $event)">
                   <svg class="dropdown-arrow-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 9L1 4H11L6 9Z" fill="#666"/>
                   </svg>
-                  <span class="slds-assistive-text">Show More</span>
                 </button>
-                <div class="slds-dropdown slds-dropdown_right slds-dropdown_actions dropdown-content">
-                  <ul class="slds-dropdown__list" role="menu">
-                    <li class="slds-dropdown__item" role="presentation">
-                      <a role="menuitem" (click)="onEditTask(task)" class="slds-dropdown__item-link">
-                        <span class="slds-truncate">Edit</span>
+                <div class="dropdown-content" [class.show]="isDropdownOpen(task.id)" (click)="$event.stopPropagation()">
+                  <ul class="dropdown-list" role="menu">
+                    <li class="dropdown-item" role="presentation">
+                      <a role="menuitem" (click)="onEditTask(task); closeDropdown()" class="dropdown-link">
+                        <span>Edit</span>
                       </a>
                     </li>
-                    <li class="slds-dropdown__item" role="presentation">
-                      <a role="menuitem" (click)="onDeleteTask(task)" class="slds-dropdown__item-link">
-                        <span class="slds-truncate">Delete</span>
+                    <li class="dropdown-item" role="presentation">
+                      <a role="menuitem" (click)="onDeleteTask(task); closeDropdown()" class="dropdown-link">
+                        <span>Delete</span>
                       </a>
                     </li>
                   </ul>
@@ -180,12 +193,12 @@
         <div class="slds-modal__header slds-theme_error delete-header">
           <h2 class="slds-modal__title slds-hyphenate">Delete</h2>
           <button
-          class="slds-button slds-button_icon slds-modal__close close-btn"
-          (click)="cancelDelete()"
-          title="Close">
-          ×
-          <span class="slds-assistive-text">Close</span>
-        </button>
+            class="slds-button slds-button_icon slds-modal__close close-btn"
+            (click)="cancelDelete()"
+            title="Close">
+            ×
+            <span class="slds-assistive-text">Close</span>
+          </button>
         </div>
 
         <div class="slds-modal__content slds-p-around_medium delete-body">
