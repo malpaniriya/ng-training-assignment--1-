@@ -46,7 +46,7 @@
   gap: 0.8rem;
 }
 
-.icon {
+/* .icon {
   background: #f36;
   color: #fff;
   padding: 0.4rem;
@@ -54,7 +54,7 @@
   display: inline-block;
   font-size: 1.4rem;
   line-height: 1;
-}
+} */
 
 .actions-container {
   display: flex;

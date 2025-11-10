@@ -4,7 +4,7 @@
       <div class="slds-media slds-media_center title">
         <div class="slds-media__figure">
           <span class="slds-icon_container slds-icon-standard-task icon" title="Tasks">
-            🗂
+              <img src="assets/taskimg.png" alt="Tasks" style="width: 32px; height: 32px;">
           </span>
         </div>
         <div class="slds-media__body">
@@ -28,6 +28,12 @@
                 placeholder="Search"
                 [(ngModel)]="searchText"
                 (input)="onSearch()"
+                style="padding-right: 35px;"
+              />
+              <img 
+              src="assets/search.svg" 
+              alt="Search" 
+              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; pointer-events: none;"
               />
             </div>
           </div>
