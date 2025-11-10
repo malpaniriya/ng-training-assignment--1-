@@ -24,7 +24,13 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+               {
+                 "glob": "**/*",
+                 "input": "src/assets",
+                 "output": "/assets"
               }
+              
             ],
             "styles": [
               "src/styles.css"
@@ -78,16 +84,24 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "main": "src/test.ts",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+               {
+              "glob": "**/*",
+              "input": "src/assets",
+              "output": "/assets"
               }
+
             ],
             "styles": [
               "src/styles.css"
@@ -97,5 +111,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "f7c47656-8be0-4755-88f2-69f0d46d11b2"
   }
 }
